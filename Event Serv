@@ -1,0 +1,22 @@
+import { v4 as uuidv4 } from "uuid";
+
+const events: any[] = [];
+
+export const eventService = {
+  async list(query: any) {
+    return {
+      total: events.length,
+      items: events
+    };
+  },
+
+  async create(input: any) {
+    const event = {
+      event_id: uuidv4(),
+      timestamp: new Date().toISOString(),
+      ...input
+    };
+    events.push(event);
+    return event;
+  }
+};

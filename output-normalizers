@@ -1,0 +1,8 @@
+export function normalizeAssessmentOutput(raw: any) {
+  return {
+    status: "draft",
+    sections: raw.sections ?? {},
+    ai_insights: raw.ai_insights ?? raw,
+    coach_notes: raw.coach_notes ?? {}
+  };
+}

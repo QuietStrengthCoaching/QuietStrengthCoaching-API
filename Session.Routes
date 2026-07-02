@@ -1,0 +1,12 @@
+import { Router } from "express";
+import {
+  createSession,
+  getSession,
+  updateSession
+} from "../controllers/sessions.controller.js";
+
+export const sessionsRouter = Router();
+
+sessionsRouter.post("/", createSession);
+sessionsRouter.get("/:session_id", getSession);
+sessionsRouter.patch("/:session_id", updateSession);

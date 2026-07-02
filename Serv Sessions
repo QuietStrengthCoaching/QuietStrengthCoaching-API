@@ -1,0 +1,51 @@
+import { v4 as uuidv4 } from "uuid";
+
+type CreateSessionInput = {
+  client_id: string;
+  coach_id: string;
+  started_at: string;
+  ended_at?: string;
+  recording_url?: string;
+  consent_to_record: boolean;
+  session_type?: string;
+  notes?: string;
+};
+
+const fakeDb = new Map<string, any>();
+
+export const sessionService = {
+  async create(input: CreateSessionInput) {
+    const session_id = uuidv4();
+    const session = {
+      session_id,
+      ...input,
+      status: "draft",
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    fakeDb.set(session_id, session);
+    return session;
+  },
+
+  async getById(session_id: string) {
+    const session = fakeDb.get(session_id);
+    if (!session) {
+      throw new Error("Session not found");
+    }
+    return session;
+  },
+
+  async update(session_id: string, patch: Record<string, unknown>) {
+    const existing = fakeDb.get(session_id);
+    if (!existing) {
+      throw new Error("Session not found");
+    }
+    const updated = {
+      ...existing,
+      ...patch,
+      updated_at: new Date().toISOString()
+    };
+    fakeDb.set(session_id, updated);
+    return updated;
+  }
+};

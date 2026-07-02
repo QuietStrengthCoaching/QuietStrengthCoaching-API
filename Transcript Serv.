@@ -1,0 +1,33 @@
+import { v4 as uuidv4 } from "uuid";
+
+type CreateTranscriptInput = {
+  session_id: string;
+  raw_text: string;
+  language?: string;
+  segments?: any[];
+};
+
+const fakeDb = new Map<string, any>();
+
+export const transcriptService = {
+  async create(input: CreateTranscriptInput) {
+    const transcript_id = uuidv4();
+    const transcript = {
+      transcript_id,
+      ...input,
+      language: input.language || "en",
+      status: "draft",
+      created_at: new Date().toISOString()
+    };
+    fakeDb.set(transcript_id, transcript);
+    return transcript;
+  },
+
+  async getById(transcript_id: string) {
+    const transcript = fakeDb.get(transcript_id);
+    if (!transcript) {
+      throw new Error("Transcript not found");
+    }
+    return transcript;
+  }
+};

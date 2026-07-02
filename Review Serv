@@ -1,0 +1,18 @@
+import { v4 as uuidv4 } from "uuid";
+
+export const reviewService = {
+  async getQueue(coach_id?: string) {
+    return {
+      total: 0,
+      items: []
+    };
+  },
+
+  async submitDecision(review_id: string, input: any) {
+    return {
+      review_id,
+      ...input,
+      decided_at: new Date().toISOString()
+    };
+  }
+};

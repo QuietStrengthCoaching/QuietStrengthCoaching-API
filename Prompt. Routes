@@ -1,0 +1,12 @@
+import { Router } from "express";
+import {
+  createPrompt,
+  createFaithPrompt,
+  searchPrompts
+} from "../controllers/prompts.controller.js";
+
+export const promptsRouter = Router();
+
+promptsRouter.post("/prompts", createPrompt);
+promptsRouter.post("/prompts/faith", createFaithPrompt);
+promptsRouter.get("/prompts", searchPrompts);

@@ -1,0 +1,29 @@
+import type { Request, Response, NextFunction } from "express";
+import { sessionService } from "../services/session.service.js";
+
+export async function createSession(req: Request, res: Response, next: NextFunction) {
+  try {
+    const session = await sessionService.create(req.body);
+    return res.status(201).json(session);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getSession(req: Request, res: Response, next: NextFunction) {
+  try {
+    const session = await sessionService.getById(req.params.session_id);
+    return res.json(session);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function updateSession(req: Request, res: Response, next: NextFunction) {
+  try {
+    const session = await sessionService.update(req.params.session_id, req.body);
+    return res.json(session);
+  } catch (error) {
+    next(error);
+  }
+}

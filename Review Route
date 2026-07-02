@@ -1,0 +1,10 @@
+import { Router } from "express";
+import {
+  getReviewQueue,
+  submitReviewDecision
+} from "../controllers/reviews.controller.js";
+
+export const reviewsRouter = Router();
+
+reviewsRouter.get("/queue", getReviewQueue);
+reviewsRouter.post("/:review_id/decision", submitReviewDecision);

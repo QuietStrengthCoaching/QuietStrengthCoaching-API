@@ -1,0 +1,65 @@
+import type { Request, Response, NextFunction } from "express";
+import { chatService } from "../services/chat.service.js";
+
+export async function createChat(req: Request, res: Response, next: NextFunction) {
+  try {
+    const chat = await chatService.createSession(req.body);
+    return res.status(201).json(chat);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getChat(req: Request, res: Response, next: NextFunction) {
+  try {
+    const chat = await chatService.getSession(req.params.chat_id);
+    return res.json(chat);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getMessages(req: Request, res: Response, next: NextFunction) {
+  try {
+    const messages = await chatService.getMessages(req.params.chat_id, req.query);
+    return res.json(messages);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function sendMessage(req: Request, res: Response, next: NextFunction) {
+  try {
+    const message = await chatService.sendMessage(req.params.chat_id, req.body);
+    return res.status(201).json(message);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function markAsRead(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await chatService.markAsRead(req.params.chat_id, req.body);
+    return res.json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function flagMessage(req: Request, res: Response, next: NextFunction) {
+  try {
+    const flag = await chatService.flagMessage(req.params.chat_id, req.body);
+    return res.status(201).json(flag);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function escalateMessage(req: Request, res: Response, next: NextFunction) {
+  try {
+    const escalation = await chatService.escalateMessage(req.params.chat_id, req.body);
+    return res.status(201).json(escalation);
+  } catch (error) {
+    next(error);
+  }
+}

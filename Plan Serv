@@ -1,0 +1,40 @@
+import { v4 as uuidv4 } from "uuid";
+
+const fakeDb = new Map<string, any>();
+
+export const planService = {
+  async create(input: any) {
+    const plan_id = uuidv4();
+    const plan = {
+      plan_id,
+      ...input,
+      status: "draft",
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    fakeDb.set(plan_id, plan);
+    return plan;
+  },
+
+  async getById(plan_id: string) {
+    const plan = fakeDb.get(plan_id);
+    if (!plan) {
+      throw new Error("Plan not found");
+    }
+    return plan;
+  },
+
+  async update(plan_id: string, patch: Record<string, unknown>) {
+    const existing = fakeDb.get(plan_id);
+    if (!existing) {
+      throw new Error("Plan not found");
+    }
+    const updated = {
+      ...existing,
+      ...patch,
+      updated_at: new Date().toISOString()
+    };
+    fakeDb.set(plan_id, updated);
+    return updated;
+  }
+};

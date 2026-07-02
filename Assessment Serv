@@ -1,0 +1,35 @@
+import { v4 as uuidv4 } from "uuid";
+
+type Framework =
+  | "cultural_identity"
+  | "progress_perfection"
+  | "identity_strength_maturity"
+  | "executive_functioning"
+  | "capability_accommodation"
+  | "intentional_living";
+
+const fakeDb = new Map<string, any>();
+
+export const assessmentService = {
+  async run(framework: Framework, input: any) {
+    const assessment_id = uuidv4();
+    const assessment = {
+      assessment_id,
+      framework_type: framework,
+      status: "draft",
+      client_id: input.client_id,
+      coach_id: input.coach_id,
+      session_id: input.session_id,
+      transcript_id: input.transcript_id,
+      sections: {},
+      ai_insights: {
+        note: "Placeholder output from QuietStrength AI"
+      },
+      coach_notes: {},
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    fakeDb.set(assessment_id, assessment);
+    return assessment;
+  }
+};

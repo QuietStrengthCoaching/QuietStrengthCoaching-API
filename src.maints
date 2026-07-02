@@ -1,0 +1,10 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+console.log("✓ QuietStrength Worker started");
+console.log(`  Redis: ${process.env.REDIS_URL}`);
+
+// In production:
+// 1) Connect to Redis
+// 2) Listen for jobs
+// 3) Process transcription/AI tasks

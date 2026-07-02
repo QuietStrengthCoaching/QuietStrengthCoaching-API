@@ -1,0 +1,20 @@
+import type { Request, Response, NextFunction } from "express";
+import { transcriptService } from "../services/transcript.service.js";
+
+export async function createTranscript(req: Request, res: Response, next: NextFunction) {
+  try {
+    const transcript = await transcriptService.create(req.body);
+    return res.status(201).json(transcript);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getTranscript(req: Request, res: Response, next: NextFunction) {
+  try {
+    const transcript = await transcriptService.getById(req.params.transcript_id);
+    return res.json(transcript);
+  } catch (error) {
+    next(error);
+  }
+}

@@ -1,0 +1,18 @@
+import { Router } from "express";
+import {
+  createCulturalIdentityAssessment,
+  createProgressPerfectionAssessment,
+  createIdentityStrengthMaturityAssessment,
+  createExecutiveFunctioningAssessment,
+  createCapabilityAccommodationAssessment,
+  createIntentionalLivingAssessment
+} from "../controllers/assessments.controller.js";
+
+export const assessmentsRouter = Router();
+
+assessmentsRouter.post("/cultural-identity", createCulturalIdentityAssessment);
+assessmentsRouter.post("/progress-perfection", createProgressPerfectionAssessment);
+assessmentsRouter.post("/identity-strength-maturity", createIdentityStrengthMaturityAssessment);
+assessmentsRouter.post("/executive-functioning", createExecutiveFunctioningAssessment);
+assessmentsRouter.post("/capability-accommodation", createCapabilityAccommodationAssessment);
+assessmentsRouter.post("/intentional-living", createIntentionalLivingAssessment);

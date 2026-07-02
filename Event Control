@@ -1,0 +1,20 @@
+import type { Request, Response, NextFunction } from "express";
+import { eventService } from "../services/event.service.js";
+
+export async function listEvents(req: Request, res: Response, next: NextFunction) {
+  try {
+    const events = await eventService.list(req.query);
+    return res.json(events);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createEvent(req: Request, res: Response, next: NextFunction) {
+  try {
+    const event = await eventService.create(req.body);
+    return res.status(201).json(event);
+  } catch (error) {
+    next(error);
+  }
+}

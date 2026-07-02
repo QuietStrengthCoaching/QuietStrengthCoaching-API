@@ -1,0 +1,26 @@
+import { v4 as uuidv4 } from "uuid";
+
+const fakeDb = new Map<string, any>();
+
+export const summaryService = {
+  async create(input: any) {
+    const summary_id = uuidv4();
+    const summary = {
+      summary_id,
+      ...input,
+      coach_status: "draft",
+      client_delivery_status: "pending_review",
+      created_at: new Date().toISOString()
+    };
+    fakeDb.set(summary_id, summary);
+    return summary;
+  },
+
+  async getById(summary_id: string) {
+    const summary = fakeDb.get(summary_id);
+    if (!summary) {
+      throw new Error("Summary not found");
+    }
+    return summary;
+  }
+};

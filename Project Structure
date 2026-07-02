@@ -1,0 +1,8 @@
+quietstrength-ai/
+├── apps/
+│   ├── api/          # Express API
+│   └── worker/       # Job queue processor
+├── packages/
+│   ├── shared/       # Shared types
+│   └── ai-core/      # AI framework runners
+└── database/         # Migrations & schemas

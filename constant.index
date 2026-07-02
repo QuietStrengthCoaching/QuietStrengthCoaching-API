@@ -1,0 +1,21 @@
+export const DEFAULT_LANGUAGE = "en";
+
+export const FRAMEWORKS = [
+  "cultural_identity",
+  "progress_perfection",
+  "identity_strength_maturity",
+  "executive_functioning",
+  "capability_accommodation",
+  "intentional_living"
+] as const;
+
+export const CHAT_TYPES = ["coach_client", "client_journal", "system_assisted"] as const;
+
+export const RISK_KEYWORDS = [
+  "suicide",
+  "kill myself",
+  "self-harm",
+  "hurt someone",
+  "abuse",
+  "hopeless"
+];

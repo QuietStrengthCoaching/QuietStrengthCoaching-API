@@ -1,0 +1,116 @@
+import { v4 as uuidv4 } from "uuid";
+
+const chatSessions = new Map<string, any>();
+const chatMessages = new Map<string, any[]>();
+const chatFlags = new Map<string, any[]>();
+
+function detectRiskLanguage(text: string): string[] {
+  const lower = text.toLowerCase();
+  const riskTerms = ["suicide", "kill myself", "self-harm", "hurt someone", "abuse"];
+  const detected = riskTerms.filter(term => lower.includes(term));
+  return detected;
+}
+
+export const chatService = {
+  async createSession(input: any) {
+    const chat_id = uuidv4();
+    const session = {
+      chat_id,
+      ...input,
+      status: "active",
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    chatSessions.set(chat_id, session);
+    chatMessages.set(chat_id, []);
+    chatFlags.set(chat_id, []);
+    return session;
+  },
+
+  async getSession(chat_id: string) {
+    const session = chatSessions.get(chat_id);
+    if (!session) {
+      throw new Error("Chat not found");
+    }
+    return session;
+  },
+
+  async getMessages(chat_id: string, query: any) {
+    const messages = chatMessages.get(chat_id) || [];
+    const limit = parseInt(query.limit as string) || 50;
+    const offset = parseInt(query.offset as string) || 0;
+    return {
+      items: messages.slice(offset, offset + limit),
+      total: messages.length,
+      limit,
+      offset
+    };
+  },
+
+  async sendMessage(chat_id: string, input: any) {
+    const session = chatSessions.get(chat_id);
+    if (!session) {
+      throw new Error("Chat not found");
+    }
+
+    const message_id = uuidv4();
+    const riskFlags = detectRiskLanguage(input.content);
+    const message = {
+      message_id,
+      chat_id,
+      ...input,
+      created_at: new Date().toISOString(),
+      status: "sent",
+      safety_flag: riskFlags.length > 0,
+      risk_flags: riskFlags
+    };
+
+    const messages = chatMessages.get(chat_id) || [];
+    messages.push(message);
+    chatMessages.set(chat_id, messages);
+
+    return message;
+  },
+
+  async markAsRead(chat_id: string, input: any) {
+    return {
+      status: "ok",
+      messages_marked_read: input.message_ids?.length || 0
+    };
+  },
+
+  async flagMessage(chat_id: string, input: any) {
+    const flag_id = uuidv4();
+    const flag = {
+      flag_id,
+      chat_id,
+      ...input,
+      created_at: new Date().toISOString(),
+      status: "pending"
+    };
+
+    const flags = chatFlags.get(chat_id) || [];
+    flags.push(flag);
+    chatFlags.set(chat_id, flags);
+
+    return flag;
+  },
+
+  async escalateMessage(chat_id: string, input: any) {
+    const flag_id = uuidv4();
+    const escalation = {
+      flag_id,
+      chat_id,
+      flag_type: "escalation",
+      ...input,
+      created_at: new Date().toISOString(),
+      status: "pending"
+    };
+
+    const flags = chatFlags.get(chat_id) || [];
+    flags.push(escalation);
+    chatFlags.set(chat_id, flags);
+
+    return escalation;
+  }
+};

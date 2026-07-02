@@ -1,0 +1,10 @@
+export async function transcribeSessionJob(payload: {
+  session_id: string;
+  recording_url: string;
+}) {
+  return {
+    session_id: payload.session_id,
+    transcript: "Placeholder transcript from Whisper",
+    status: "completed"
+  };
+}

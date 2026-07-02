@@ -1,0 +1,14 @@
+export async function runProgressPerfectionFramework(input: {
+  transcript: string;
+  client_id: string;
+}) {
+  return {
+    core_issue: "perfectionism",
+    progress_found: true,
+    key_insights: [
+      "Client is measuring success with a perfection standard.",
+      "Evidence suggests progress exists."
+    ],
+    recommended_next_step: "Create one realistic weekly target."
+  };
+}

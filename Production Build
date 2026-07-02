@@ -1,3 +1,48 @@
 pnpm build
 pnpm start:api
 pnpm start:worker
+pnpm build
+pnpm start:api
+pnpm start:worker
+
+API Endpoints
+
+Sessions
+POST /v1/sessions - Create session
+GET /v1/sessions/:session_id - Get session
+PATCH /v1/sessions/:session_id - Update session
+Transcripts
+POST /v1/transcripts - Create transcript
+GET /v1/transcripts/:transcript_id - Get transcript
+Assessments
+POST /v1/assessments/cultural-identity
+POST /v1/assessments/progress-perfection
+POST /v1/assessments/identity-strength-maturity
+POST /v1/assessments/executive-functioning
+POST /v1/assessments/capability-accommodation
+POST /v1/assessments/intentional-living
+Prompts
+POST /v1/intentional-action/prompts - Create secular prompt
+POST /v1/intentional-action/prompts/faith - Create faith prompt
+GET /v1/intentional-action/prompts - Search prompts
+Plans
+POST /v1/plans/action - Create action plan
+GET /v1/plans/:plan_id - Get plan
+PATCH /v1/plans/:plan_id - Update plan
+Summaries
+POST /v1/summaries/session-reflection - Create summary
+GET /v1/summaries/:summary_id - Get summary
+Reviews
+GET /v1/reviews/queue - Get review queue
+POST /v1/reviews/:review_id/decision - Submit decision
+Events
+GET /v1/events - List events
+POST /v1/events - Create event
+Chat
+POST /v1/chats - Create chat
+GET /v1/chats/:chat_id - Get chat
+GET /v1/chats/:chat_id/messages - Get messages
+POST /v1/chats/:chat_id/messages - Send message
+PATCH /v1/chats/:chat_id/read - Mark as read
+POST /v1/chats/:chat_id/flag - Flag message
+POST /v1/chats/:chat_id/escalate - Escalate to coach

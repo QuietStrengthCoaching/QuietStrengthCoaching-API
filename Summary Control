@@ -1,0 +1,20 @@
+import type { Request, Response, NextFunction } from "express";
+import { summaryService } from "../services/summary.service.js";
+
+export async function createSessionReflectionSummary(req: Request, res: Response, next: NextFunction) {
+  try {
+    const summary = await summaryService.create(req.body);
+    return res.status(201).json(summary);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getSessionSummary(req: Request, res: Response, next: NextFunction) {
+  try {
+    const summary = await summaryService.getById(req.params.summary_id);
+    return res.json(summary);
+  } catch (error) {
+    next(error);
+  }
+}

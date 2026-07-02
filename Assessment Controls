@@ -1,0 +1,56 @@
+import type { Request, Response, NextFunction } from "express";
+import { assessmentService } from "../services/assessment.service.js";
+
+export async function createCulturalIdentityAssessment(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await assessmentService.run("cultural_identity", req.body);
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createProgressPerfectionAssessment(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await assessmentService.run("progress_perfection", req.body);
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createIdentityStrengthMaturityAssessment(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await assessmentService.run("identity_strength_maturity", req.body);
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createExecutiveFunctioningAssessment(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await assessmentService.run("executive_functioning", req.body);
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createCapabilityAccommodationAssessment(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await assessmentService.run("capability_accommodation", req.body);
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createIntentionalLivingAssessment(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await assessmentService.run("intentional_living", req.body);
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+}

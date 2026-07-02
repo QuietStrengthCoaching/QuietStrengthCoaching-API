@@ -1,0 +1,48 @@
+import { v4 as uuidv4 } from "uuid";
+
+const promptLibrary: any[] = [
+  {
+    prompt_id: "prompt_1",
+    routine: "bathing",
+    category: "secular",
+    anchor_phrase: "I'm leaving behind what I don't need to carry.",
+    reflection_question: "What am I carrying that I no longer need to carry into tomorrow?",
+    alignment_question: "How does this action support the person I am becoming?",
+    supported_values: ["release", "clarity", "grounding"],
+    opt_in_only: false
+  }
+];
+
+export const promptService = {
+  async createSecular(input: any) {
+    const prompt = {
+      prompt_id: uuidv4(),
+      category: "secular",
+      opt_in_only: false,
+      ...input,
+      created_at: new Date().toISOString()
+    };
+    promptLibrary.push(prompt);
+    return prompt;
+  },
+
+  async createFaith(input: any) {
+    const prompt = {
+      prompt_id: uuidv4(),
+      category: "faith",
+      opt_in_only: true,
+      ...input,
+      created_at: new Date().toISOString()
+    };
+    promptLibrary.push(prompt);
+    return prompt;
+  },
+
+  async search(query: any) {
+    return promptLibrary.filter((p) => {
+      if (query.routine && p.routine !== query.routine) return false;
+      if (query.category && p.category !== query.category) return false;
+      return true;
+    });
+  }
+};

@@ -1,0 +1,9 @@
+export function detectRisk(text: string) {
+  const lower = text.toLowerCase();
+  const riskTerms = ["suicide", "kill myself", "self-harm", "hurt someone"];
+  const detected = riskTerms.some((term) => lower.includes(term));
+  return {
+    detected,
+    reason: detected ? "Risk language detected" : null
+  };
+}

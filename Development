@@ -1,0 +1,5 @@
+# Terminal 1: API
+pnpm dev:api
+
+# Terminal 2: Worker
+pnpm dev:worker

@@ -1,0 +1,10 @@
+import { Router } from "express";
+import {
+  createSessionReflectionSummary,
+  getSessionSummary
+} from "../controllers/summaries.controller.js";
+
+export const summariesRouter = Router();
+
+summariesRouter.post("/session-reflection", createSessionReflectionSummary);
+summariesRouter.get("/:summary_id", getSessionSummary);

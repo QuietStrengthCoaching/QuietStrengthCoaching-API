@@ -1,0 +1,35 @@
+
+---
+
+### **apps/api/package.json**
+```json
+{
+  "name": "api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "helmet": "^8.0.0",
+    "zod": "^3.23.8",
+    "uuid": "^9.0.1",
+    "pg": "^8.11.3",
+    "jsonwebtoken": "^9.1.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.10.6",
+    "@types/pg": "^8.11.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

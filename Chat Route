@@ -1,0 +1,20 @@
+import { Router } from "express";
+import {
+  createChat,
+  getChat,
+  getMessages,
+  sendMessage,
+  markAsRead,
+  flagMessage,
+  escalateMessage
+} from "../controllers/chats.controller.js";
+
+export const chatsRouter = Router();
+
+chatsRouter.post("/", createChat);
+chatsRouter.get("/:chat_id", getChat);
+chatsRouter.get("/:chat_id/messages", getMessages);
+chatsRouter.post("/:chat_id/messages", sendMessage);
+chatsRouter.patch("/:chat_id/read", markAsRead);
+chatsRouter.post("/:chat_id/flag", flagMessage);
+chatsRouter.post("/:chat_id/escalate", escalateMessage);

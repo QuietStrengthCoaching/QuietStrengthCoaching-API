@@ -1,0 +1,20 @@
+import type { Request, Response, NextFunction } from "express";
+import { reviewService } from "../services/review.service.js";
+
+export async function getReviewQueue(req: Request, res: Response, next: NextFunction) {
+  try {
+    const queue = await reviewService.getQueue(req.query.coach_id as string | undefined);
+    return res.json(queue);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function submitReviewDecision(req: Request, res: Response, next: NextFunction) {
+  try {
+    const decision = await reviewService.submitDecision(req.params.review_id, req.body);
+    return res.json(decision);
+  } catch (error) {
+    next(error);
+  }
+}

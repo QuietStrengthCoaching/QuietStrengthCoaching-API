@@ -1,0 +1,11 @@
+export async function analyzeSessionJob(payload: {
+  transcript_id: string;
+  framework_type?: string;
+}) {
+  return {
+    transcript_id: payload.transcript_id,
+    insights: {
+      note: "Placeholder AI analysis"
+    }
+  };
+}

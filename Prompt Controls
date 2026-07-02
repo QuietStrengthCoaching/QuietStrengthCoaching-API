@@ -1,0 +1,29 @@
+import type { Request, Response, NextFunction } from "express";
+import { promptService } from "../services/prompt.service.js";
+
+export async function createPrompt(req: Request, res: Response, next: NextFunction) {
+  try {
+    const prompt = await promptService.createSecular(req.body);
+    return res.status(201).json(prompt);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createFaithPrompt(req: Request, res: Response, next: NextFunction) {
+  try {
+    const prompt = await promptService.createFaith(req.body);
+    return res.status(201).json(prompt);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function searchPrompts(req: Request, res: Response, next: NextFunction) {
+  try {
+    const prompts = await promptService.search(req.query);
+    return res.json(prompts);
+  } catch (error) {
+    next(error);
+  }
+}
